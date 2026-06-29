@@ -72,7 +72,7 @@ while True:
         "cpu": f"{cpu_per}%",
         "ram": f"{ram.percent}%",
         "disk": f"{disk.percent}%",
-        "temp": f"{cpu_temp:.0f}C" if cpu_temp else "N/A",
+        "temp": f"{cpu_temp:.0f}°C" if cpu_temp else "N/A",
         "battery": f"{batt_pct:.0f}%" if batt_pct is not None else "N/A",
         "top": top_name,
         "up": f"{sent:.1f}K",

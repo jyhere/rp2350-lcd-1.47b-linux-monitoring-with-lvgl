@@ -38,6 +38,7 @@ C_NET_UL  = color(0xFFA726)
 C_ACCENT  = color(0x00BCD4)
 C_SEP     = color(0x1A2A4A)
 C_ORANGE  = color(0xFFA726)
+C_RED     = color(0xFF3333)
 C_BAR_BG  = color(0x0A0E1A)
 
 try:
