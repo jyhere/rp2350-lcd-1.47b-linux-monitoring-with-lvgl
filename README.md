@@ -28,8 +28,8 @@ Monitor PC resource usage (CPU, RAM, network, temperatures) on a Waveshare RP235
 | `main.py` | MicroPython firmware — LVGL UI, LCD driver, serial JSON parser |
 | `pc_monitor.py` | PC-side script — gathers system metrics with psutil, sends JSON over serial |
 | `lib/lv_utils.py` | LVGL timer helpers (tick + task handler) |
-| `images/background-1.png` | Background image for the UI |
-| `firmware/` | Custom LVGL+MicroPython firmware build files (see Setup) |
+| `images/background-1.png` | Source background image for the UI |
+| `bg.raw` | Pre-converted RGB565 background image (loaded by main.py) |
 
 ## Custom Firmware
 

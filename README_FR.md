@@ -28,8 +28,8 @@ Surveillez les ressources de votre PC (CPU, RAM, réseau, température) sur un �
 | `main.py` | Firmware MicroPython — interface LVGL, pilote LCD, parseur JSON série |
 | `pc_monitor.py` | Script PC — collecte les métriques système avec psutil, envoie du JSON sur série |
 | `lib/lv_utils.py` | Utilitaires LVGL (timer tick + task handler) |
-| `images/background-1.png` | Image de fond pour l'interface |
-| `firmware/` | Fichiers de compilation du firmware LVGL+MicroPython (voir Installation) |
+| `images/background-1.png` | Image source pour le fond d'écran |
+| `bg.raw` | Image de fond pré-convertie en RGB565 (chargée par main.py) |
 
 ## Firmware personnalisé
 
