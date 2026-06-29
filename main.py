@@ -207,6 +207,19 @@ C_ORANGE = lv.color_hex(0xFFA726)
 scr = lv.screen_active()
 scr.set_style_bg_color(C_BG, 0)
 
+with open('bg.raw', 'rb') as f:
+    bg_data = f.read()
+bg_dsc = lv.image_dsc_t()
+bg_dsc.header.w = 320
+bg_dsc.header.h = 172
+bg_dsc.header.cf = lv.COLOR_FORMAT.RGB565
+bg_dsc.data_size = len(bg_data)
+bg_dsc.data = bg_data
+bg_img = lv.image(scr)
+bg_img.set_src(bg_dsc)
+bg_img.set_pos(0, 0)
+bg_img.move_background()
+
 label_title = lv.label(scr)
 label_title.set_text("PC MONITOR")
 label_title.set_pos(10, 4)
