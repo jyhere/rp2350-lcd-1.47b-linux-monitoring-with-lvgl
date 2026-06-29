@@ -32,6 +32,7 @@ C_RAM     = color(0x448AFF)
 C_DSK     = color(0xDDA0DD)
 C_BAT     = color(0x76FF03)
 C_TOP     = color(0x40C4FF)
+C_TEMP    = color(0xFF5252)
 C_NET_DL  = color(0xFF6B6B)
 C_NET_UL  = color(0xFFA726)
 C_ACCENT  = color(0x00BCD4)
@@ -80,14 +81,14 @@ label(img, 183, 70, "30%", C_DSK, f16)
 label(img, 10, 94, "BAT  85%", C_BAT, f16)
 
 # TOP
-label(img, 10, 112, "TOP  python3", C_TOP, f16)
+label(img, 10, 116, "TOP  python3", C_TOP, f16)
 
-# Sep
-draw.text((4, 130), "-" * 32, fill=C_SEP, font=f12)
+# TEMP
+label(img, 10, 138, "TEMP  45\u00b0C", C_TEMP, f16)
 
-# DL / UL
-label(img, 10, 144, "DL  20.0K/s", C_NET_DL, f14)
-label(img, 10, 158, "UL  10.0K/s", C_NET_UL, f14)
+# DL / UL on same line
+label(img, 10, 158, "DL  20.0K/s", C_NET_DL, f14)
+label(img, 170, 158, "UL  10.0K/s", C_NET_UL, f14)
 
 img.save('screenshot.png')
 print("screenshot.png saved")

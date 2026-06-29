@@ -200,6 +200,7 @@ C_RAM = lv.color_hex(0x448AFF)
 C_DSK = lv.color_hex(0xDDA0DD)
 C_BAT = lv.color_hex(0x76FF03)
 C_TOP = lv.color_hex(0x40C4FF)
+C_TEMP = lv.color_hex(0xFF5252)
 C_NET_DL = lv.color_hex(0xFF6B6B)
 C_NET_UL = lv.color_hex(0xFFA726)
 C_ACCENT = lv.color_hex(0x00BCD4)
@@ -320,27 +321,27 @@ label_bat.set_style_text_font(lv.font_montserrat_16, 0)
 
 label_top = lv.label(scr)
 label_top.set_text("TOP  ---------")
-label_top.set_pos(10, 112)
+label_top.set_pos(10, 116)
 label_top.set_style_text_color(C_TOP, 0)
 label_top.set_style_text_font(lv.font_montserrat_16, 0)
 
+label_temp = lv.label(scr)
+label_temp.set_text("TEMP  --\u00b0C")
+label_temp.set_pos(10, 138)
+label_temp.set_style_text_color(C_TEMP, 0)
+label_temp.set_style_text_font(lv.font_montserrat_16, 0)
+
 label_net_dl = lv.label(scr)
 label_net_dl.set_text("DL  ---.-K/s")
-label_net_dl.set_pos(10, 144)
+label_net_dl.set_pos(10, 158)
 label_net_dl.set_style_text_color(C_NET_DL, 0)
 label_net_dl.set_style_text_font(lv.font_montserrat_14, 0)
 
 label_net_ul = lv.label(scr)
 label_net_ul.set_text("UL  ---.-K/s")
-label_net_ul.set_pos(10, 158)
+label_net_ul.set_pos(170, 158)
 label_net_ul.set_style_text_color(C_NET_UL, 0)
 label_net_ul.set_style_text_font(lv.font_montserrat_14, 0)
-
-sep = lv.label(scr)
-sep.set_text("--------------------------------")
-sep.set_pos(4, 130)
-sep.set_style_text_color(C_SEP, 0)
-sep.set_style_text_font(lv.font_montserrat_12, 0)
 
 print("LVGL PC Monitor initialized, listening...")
 
@@ -366,6 +367,7 @@ while True:
 
             label_bat.set_text("BAT  " + stats['battery'])
             label_top.set_text("TOP  " + stats['top'])
+            label_temp.set_text("TEMP  " + stats['temp'])
 
             color = C_CPU if cpu_pct < 70 else (C_ORANGE if cpu_pct < 90 else C_RAM)
             label_cpu_val.set_style_text_color(color, 0)

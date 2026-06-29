@@ -44,6 +44,12 @@ while True:
     proc_count = len(psutil.pids())
 
     try:
+        temps = psutil.sensors_temperatures()
+        cpu_temp = temps['coretemp'][0].current if 'coretemp' in temps else 0
+    except:
+        cpu_temp = 0
+
+    try:
         batt = psutil.sensors_battery()
         batt_pct = batt.percent if batt else None
     except:
@@ -66,6 +72,7 @@ while True:
         "cpu": f"{cpu_per}%",
         "ram": f"{ram.percent}%",
         "disk": f"{disk.percent}%",
+        "temp": f"{cpu_temp:.0f}C" if cpu_temp else "N/A",
         "battery": f"{batt_pct:.0f}%" if batt_pct is not None else "N/A",
         "top": top_name,
         "up": f"{sent:.1f}K",
