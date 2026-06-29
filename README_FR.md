@@ -30,17 +30,32 @@ Surveillez les ressources de votre PC (CPU, RAM, réseau, température) sur un �
 | `lib/lv_utils.py` | Utilitaires LVGL (timer tick + task handler) |
 | `images/background-1.png` | Image source pour le fond d'écran |
 | `bg.raw` | Image de fond pré-convertie en RGB565 (chargée par main.py) |
+| `firmware/lvgl_micropy_RPI_PICO2.uf2` | Firmware MicroPython personnalisé pré-compilé avec les bindings LVGL |
 
 ## Firmware personnalisé
 
 Ce projet nécessite un **firmware MicroPython personnalisé** compilé avec les bindings LVGL.
 
-### Prérequis
+### Binaire pré-compilé
+
+Un firmware pré-compilé est inclus dans `firmware/lvgl_micropy_RPI_PICO2.uf2`. Flashez-le directement (voir [Flash](#flash)).
+
+### Compilation depuis les sources
+
+#### Prérequis
 
 - Fork de [lvgl_micropython](https://github.com/lvgl/lvgl_micropython) avec support RP2350
 - Pico SDK 2.x
 
-### Compilation
+#### Modifications appliquées aux sources
+
+Les changements suivants ont été effectués dans lvgl_micropython pour la compatibilité RP2350 :
+
+- `micropy_updates/rp2/machine_spi.c` : mise à jour des champs de la structure du bus SPI (data0–data7, device_count, freq au lieu de baudrate, mp_hal_get_pin_obj au lieu de mp_obj_get_int)
+- `ext_mod/lcd_bus/common_include/spi_bus.h` : correction du type vers `mp_machine_hw_spi_device_obj_t`
+- `ext_mod/lcd_bus/common_src/spi_bus.c` : mise à jour des champs de structure et ajout de `#include "extmod/modmachine.h"`
+
+#### Compilation
 
 ```bash
 cd lvgl_micropython
@@ -54,13 +69,13 @@ Le binaire produit se trouve dans `build/lvgl_micropy_RPI_PICO2.uf2`.
 Maintenez le bouton **BOOTSEL** enfoncé en branchant le Pico 2 en USB, puis copiez le fichier UF2 :
 
 ```bash
-cp build/lvgl_micropy_RPI_PICO2.uf2 /media/$USER/RPI_RP2/
+cp firmware/lvgl_micropy_RPI_PICO2.uf2 /media/$USER/RPI_RP2/
 ```
 
 Ou avec `picotool` :
 
 ```bash
-picotool load build/lvgl_micropy_RPI_PICO2.uf2 && picotool reboot
+picotool load firmware/lvgl_micropy_RPI_PICO2.uf2 && picotool reboot
 ```
 
 ## Brochage

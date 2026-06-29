@@ -30,17 +30,32 @@ Monitor PC resource usage (CPU, RAM, network, temperatures) on a Waveshare RP235
 | `lib/lv_utils.py` | LVGL timer helpers (tick + task handler) |
 | `images/background-1.png` | Source background image for the UI |
 | `bg.raw` | Pre-converted RGB565 background image (loaded by main.py) |
+| `firmware/lvgl_micropy_RPI_PICO2.uf2` | Pre-built custom MicroPython firmware with LVGL bindings |
 
 ## Custom Firmware
 
 This project requires a **custom MicroPython firmware** built with LVGL bindings.
 
-### Prerequisites
+### Pre-built binary
 
-- [lvgl_micropython](https://github.com/lvgl/lvgl_micropython) fork with RP2350 support
+A pre-built firmware is included in `firmware/lvgl_micropy_RPI_PICO2.uf2`. Flash it directly (see [Flash](#flash)).
+
+### Build from source
+
+#### Prerequisites
+
+- Fork of [lvgl_micropython](https://github.com/lvgl/lvgl_micropython) with RP2350 support
 - Pico SDK 2.x
 
-### Build
+#### Modifications applied
+
+The following source changes were made to lvgl_micropython for RP2350 compatibility:
+
+- `micropy_updates/rp2/machine_spi.c`: Updated SPI bus struct fields for the new common SPI API (data0–data7, device_count, freq instead of baudrate, mp_hal_get_pin_obj instead of mp_obj_get_int)
+- `ext_mod/lcd_bus/common_include/spi_bus.h`: Fixed type to `mp_machine_hw_spi_device_obj_t`
+- `ext_mod/lcd_bus/common_src/spi_bus.c`: Updated struct fields and added `#include "extmod/modmachine.h"`
+
+#### Build
 
 ```bash
 cd lvgl_micropython
@@ -54,13 +69,13 @@ The output binary is at `build/lvgl_micropy_RPI_PICO2.uf2`.
 Hold the **BOOTSEL** button while connecting the Pico 2 via USB, then copy the UF2:
 
 ```bash
-cp build/lvgl_micropy_RPI_PICO2.uf2 /media/$USER/RPI_RP2/
+cp firmware/lvgl_micropy_RPI_PICO2.uf2 /media/$USER/RPI_RP2/
 ```
 
 Or use `picotool`:
 
 ```bash
-picotool load build/lvgl_micropy_RPI_PICO2.uf2 && picotool reboot
+picotool load firmware/lvgl_micropy_RPI_PICO2.uf2 && picotool reboot
 ```
 
 ## Pinout
