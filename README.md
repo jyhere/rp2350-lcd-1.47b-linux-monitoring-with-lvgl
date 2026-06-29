@@ -3,7 +3,9 @@
 Monitor PC resource usage (CPU, RAM, network, temperatures) on a Waveshare RP2350-LCD-1.47-B display, powered by LVGL + MicroPython.
 
 ![status](https://img.shields.io/badge/status-stable-brightgreen)
-![version](https://img.shields.io/badge/version-1.0-blue)
+![version](https://img.shields.io/badge/version-1.1-blue)
+
+![Screenshot](images/screenshot.png)
 
 ## Hardware
 
@@ -13,12 +15,13 @@ Monitor PC resource usage (CPU, RAM, network, temperatures) on a Waveshare RP235
 ## Features
 
 - CPU usage (bar + percentage)
-- CPU temperature
 - RAM usage (bar + percentage)
-- Active process count
+- Disk usage (bar + percentage)
+- Battery level (if available)
+- Top CPU-consuming process
 - Network upload/download speed (KB/s)
 - Timestamp display
-- Color-coded indicators (CPU/RAM bars change color based on load)
+- Color-coded indicators (bars change color based on load)
 - PC-side auto-reconnect on Pico disconnection
 
 ## Project Structure
@@ -29,6 +32,7 @@ Monitor PC resource usage (CPU, RAM, network, temperatures) on a Waveshare RP235
 | `pc_monitor.py` | PC-side script — gathers system metrics with psutil, sends JSON over serial |
 | `lib/lv_utils.py` | LVGL timer helpers (tick + task handler) |
 | `images/background-1.png` | Source background image for the UI |
+| `images/screenshot.png` | Example screenshot of the display |
 | `bg.raw` | Pre-converted RGB565 background image (loaded by main.py) |
 | `firmware/lvgl_micropy_RPI_PICO2.uf2` | Pre-built custom MicroPython firmware with LVGL bindings |
 
@@ -112,7 +116,7 @@ python pc_monitor.py
 `pc_monitor.py` polls `psutil` every second and sends a JSON line over USB serial:
 
 ```json
-{"time":"14:32:01","cpu":"23%","temp":"45.0C","ram":"67%","proc":312,"up":"0.5K","down":"1.2K"}
+{"time":"14:32:01","cpu":"23%","ram":"67%","disk":"45%","battery":"85%","top":"python3","up":"0.5K","down":"1.2K"}
 ```
 
 `main.py` parses the JSON and renders it using LVGL on the LCD.
