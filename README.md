@@ -17,6 +17,7 @@ Monitor PC resource usage (CPU, RAM, network, temperatures) on a Waveshare RP235
 - CPU usage (bar + percentage)
 - RAM usage (bar + percentage)
 - Disk usage (bar + percentage)
+- CPU temperature
 - Battery level (if available)
 - Top CPU-consuming process
 - Network upload/download speed (KB/s)

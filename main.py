@@ -321,13 +321,13 @@ label_bat.set_style_text_font(lv.font_montserrat_16, 0)
 
 label_top = lv.label(scr)
 label_top.set_text("TOP  ---------")
-label_top.set_pos(10, 116)
+label_top.set_pos(10, 138)
 label_top.set_style_text_color(C_TOP, 0)
 label_top.set_style_text_font(lv.font_montserrat_16, 0)
 
 label_temp = lv.label(scr)
 label_temp.set_text("TEMP  --\u00b0C")
-label_temp.set_pos(10, 138)
+label_temp.set_pos(10, 116)
 label_temp.set_style_text_color(C_TEMP, 0)
 label_temp.set_style_text_font(lv.font_montserrat_16, 0)
 

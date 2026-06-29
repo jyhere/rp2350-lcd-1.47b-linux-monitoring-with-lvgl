@@ -80,11 +80,11 @@ label(img, 183, 70, "30%", C_DSK, f16)
 # BAT
 label(img, 10, 94, "BAT  85%", C_BAT, f16)
 
-# TOP
-label(img, 10, 116, "TOP  python3", C_TOP, f16)
-
 # TEMP
-label(img, 10, 138, "TEMP  45\u00b0C", C_TEMP, f16)
+label(img, 10, 116, "TEMP  45\u00b0C", C_TEMP, f16)
+
+# TOP
+label(img, 10, 138, "TOP  python3", C_TOP, f16)
 
 # DL / UL on same line
 label(img, 10, 158, "DL  20.0K/s", C_NET_DL, f14)
