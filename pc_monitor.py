@@ -38,14 +38,23 @@ while True:
     now = datetime.datetime.now().strftime("%H:%M:%S")
 
     cpu_per = psutil.cpu_percent(interval=0.5)
-    try:
-        temps = psutil.sensors_temperatures()
-        cpu_temp = temps['coretemp'][0].current if 'coretemp' in temps else 0
-    except:
-        cpu_temp = 0
 
     ram = psutil.virtual_memory()
+    disk = psutil.disk_usage('/')
     proc_count = len(psutil.pids())
+
+    try:
+        batt = psutil.sensors_battery()
+        batt_pct = batt.percent if batt else None
+    except:
+        batt_pct = None
+
+    try:
+        top_proc = sorted(psutil.process_iter(['name', 'cpu_percent']),
+                          key=lambda p: p.info['cpu_percent'] or 0, reverse=True)[0]
+        top_name = top_proc.info['name'][:12] if top_proc.info['name'] else "?"
+    except:
+        top_name = "?"
 
     new_net = psutil.net_io_counters()
     sent = (new_net.bytes_sent - old_net.bytes_sent) / 1024 / 0.5
@@ -55,9 +64,10 @@ while True:
     data = {
         "time": now,
         "cpu": f"{cpu_per}%",
-        "temp": f"{cpu_temp}C" if cpu_temp else "N/A",
         "ram": f"{ram.percent}%",
-        "proc": proc_count,
+        "disk": f"{disk.percent}%",
+        "battery": f"{batt_pct:.0f}%" if batt_pct is not None else "N/A",
+        "top": top_name,
         "up": f"{sent:.1f}K",
         "down": f"{recv:.1f}K"
     }
